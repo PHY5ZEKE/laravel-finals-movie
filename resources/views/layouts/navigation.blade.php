@@ -5,16 +5,47 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                   
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
-                    </a>
+                    
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+                    @php
+                    $dashboardRoute = auth()->user()->role === 'admin' ? 'management.dashboard' : 'dashboard';
+                @endphp
+                
+                <x-nav-link :href="route($dashboardRoute)" :active="request()->routeIs($dashboardRoute)">
+                    {{ __('Dashboard') }}
+                </x-nav-link>
+
+                <x-nav-link :href="route('management.movie.index')" :active="request()->routeIs('management.movie.index')">
+                    {{ __('Movies') }}
+                </x-nav-link>
+
+                <x-nav-link href="" >
+                    {{ __('Theaters') }}
+                </x-nav-link>
+
+                <x-nav-link href="" >
+                    {{ __('Showtimes') }}
+                </x-nav-link>
+
+                
+                <x-nav-link href="" >
+                    {{ __('Bookings') }}
+                </x-nav-link>
+
+                <x-nav-link href="" >
+                    {{ __('Users') }}
+                </x-nav-link>
+
+                <x-nav-link href="" >
+                    {{ __('Logs') }}
+                </x-nav-link>
+
+                
                 </div>
             </div>
 
