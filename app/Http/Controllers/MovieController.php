@@ -56,7 +56,7 @@ class MovieController extends Controller
 
         $movie->update($request->only(['title', 'genre', 'duration', 'releaseDate', 'description']));
 
-        return redirect()->route('management.movie.show', $movie->id);
+        return redirect()->route('management.movie.show', $movie->movie_id);
     }
 
     public function destroy(Movie $movie)

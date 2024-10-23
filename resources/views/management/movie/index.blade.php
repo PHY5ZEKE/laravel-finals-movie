@@ -9,7 +9,7 @@
                     
                     <div class="space-y-4">
                         @foreach ($movies as $movie)
-                        <a href="{{ route('management.movie.show', $movie->id) }}" class="block px-4 py-6 border border-gray-200 rounded-lg shadow-sm">
+                        <a href="{{ route('management.movie.show', $movie->movie_id) }}" class="block px-4 py-6 border border-gray-200 rounded-lg shadow-sm">
                                 <h2 class="text-xl font-bold text-blue-500">{{ $movie->title }}</h2>
                                 <p class="text-gray-700"><strong>Genre:</strong> {{ $movie->genre }}</p>
                                 <p class="text-gray-700"><strong>Duration:</strong> {{ $movie->duration }} minutes</p>

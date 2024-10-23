@@ -5,15 +5,15 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                  <h1>Add Movie</h1>
+                  <h1>Edit Movie</h1>
                   <hr/>
                   <br/>
-                  <form action="{{ route('management.movie.update', $movie->id) }}" method="POST">
+                  <form action="{{ route('management.movie.update', $movie->movie_id) }}" method="POST">
         @csrf
         @method('PATCH')
       <div class="border-b border-gray-900/10 pb-12">
         <h2 class="text-base font-semibold leading-7 text-gray-900">Movie Information</h2>
-        <p class="mt-1 text-sm leading-6 text-gray-600">Fill out the details below to insert the movie in the website</p>
+       
   
         <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
           <div class="sm:col-span-3">

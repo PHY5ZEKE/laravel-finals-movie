@@ -24,11 +24,11 @@
                     {{ __('Movies') }}
                 </x-nav-link>
 
-                <x-nav-link href="" >
+                <x-nav-link :href="route('management.theater.index')" :active="request()->routeIs('management.theater.index')">
                     {{ __('Theaters') }}
                 </x-nav-link>
 
-                <x-nav-link href="" >
+                <x-nav-link :href="route('management.showtime.index')" :active="request()->routeIs('management.showtime.index')">
                     {{ __('Showtimes') }}
                 </x-nav-link>
 
@@ -37,7 +37,7 @@
                     {{ __('Bookings') }}
                 </x-nav-link>
 
-                <x-nav-link href="" >
+                <x-nav-link :href="route('management.user.index')" :active="request()->routeIs('management.user.index')" >
                     {{ __('Users') }}
                 </x-nav-link>
 

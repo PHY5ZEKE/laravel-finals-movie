@@ -10,10 +10,10 @@
                     <p class="text-gray-700"><strong>Description:</strong> {{ $movie->description }}</p>
                 </div>
                 <div class="flex space-x-4">
-                    <a href="{{ route('management.movie.edit', $movie->id) }}" class="inline-block bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
+                    <a href="{{ route('management.movie.edit', $movie->movie_id) }}" class="inline-block bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
                         Edit
                     </a>
-                    <form action="{{ route('management.movie.destroy', $movie->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this movie?');">
+                    <form action="{{ route('management.movie.destroy', $movie->movie_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this movie?');">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="inline-block bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">

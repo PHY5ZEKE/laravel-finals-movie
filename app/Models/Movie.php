@@ -11,6 +11,8 @@ class Movie extends Model
 
     protected $table = 'movies';
 
+    protected $primaryKey = 'movie_id';
+
     protected $fillable = [
         'title',
         'genre',
@@ -18,6 +20,11 @@ class Movie extends Model
         'releaseDate',
         'description'
     ];
+
+    public function showtimes()
+    {
+        return $this->hasMany(Showtime::class, 'movie_id');
+    }
 
 
 }
