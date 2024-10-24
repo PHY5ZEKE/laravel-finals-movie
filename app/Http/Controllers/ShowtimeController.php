@@ -16,6 +16,13 @@ class ShowtimeController extends Controller
         return view('management.showtime.index', ['showtimes' => $showtimes]);
     }
 
+    public function index_customer()
+    {
+        $showtimes = Showtime::with(['movie', 'theater'])->simplePaginate(5);
+
+        return view('customer.movie.index', ['showtimes' => $showtimes]);
+    }
+
     public function create()
     {
         $movies = Movie::all();

@@ -3,7 +3,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                 <h2 class="font-bold text-2xl text-blue-500 mb-4">Edit User</h2>
-                <form action="{{ route('management.user.update', $user->id) }}" method="POST">
+                <form action="{{ route('management.user.update', $user->user_id) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="flex flex-col gap-y-4">

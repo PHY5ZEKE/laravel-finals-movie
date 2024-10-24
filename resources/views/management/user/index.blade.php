@@ -8,7 +8,7 @@
                         <li class="flex justify-between gap-x-6 py-5 border-b border-gray-200">
                             <div class="flex min-w-0 gap-x-4">
                                 <div class="min-w-0 flex-auto">
-                                    <a href="{{ route('management.user.show', $user->id) }}" class="text-sm font-semibold leading-6 text-gray-900 hover:underline">
+                                    <a href="{{ route('management.user.show', $user->user_id) }}" class="text-sm font-semibold leading-6 text-gray-900 hover:underline">
                                         {{ $user->name }}
                                     </a>
                                     <p class="mt-1 truncate text-xs leading-5 text-gray-500">{{ $user->email }}</p>

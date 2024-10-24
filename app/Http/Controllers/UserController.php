@@ -35,7 +35,7 @@ class UserController extends Controller
 
        
 
-        return redirect()->route('management.user.show', $user->id);
+        return redirect()->route('management.user.show', $user->user_id);
     }
 
     public function destroy(User $user)
