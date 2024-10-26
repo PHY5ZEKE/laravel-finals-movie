@@ -60,6 +60,9 @@ Route::middleware(['auth', 'admin', 'employee'])->group(function () {
     Route::get('/management/showtime/{showtime}/edit', [ShowtimeController::class, 'edit'])->name('management.showtime.edit');
     Route::patch('/management/showtime/{showtime}', [ShowtimeController::class, 'update'])->name('management.showtime.update');
 
+    //Booking Management
+    Route::get('/management/booking', [BookingController::class, 'index'])->name('management.booking.index');
+
 });
 
 //Showtime Customer
@@ -69,6 +72,7 @@ Route::get('/customer/showtime/{showtime}', [ShowtimeController::class, 'show_cu
 //Booking Customer
 Route::get('/customer/booking/{showtime}', [BookingController::class, 'create'])->name('customer.booking.create');
 Route::post('/customer/booking', [BookingController::class, 'store'])->name('customer.booking.store');
+Route::get('/customer/booking', [BookingController::class, 'index_customer'])->name('customer.booking.index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -11,6 +11,19 @@ use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
 {
+
+    public function index()
+    {
+        $bookings = Booking::with(['showtime.movie', 'showtime.theater', 'user'])->paginate(5);
+
+        return view('management.booking.index', compact('bookings'));
+    }
+    public function index_customer()
+    {
+        $bookings = Booking::with(['showtime.movie', 'showtime.theater', 'user'])->where('user_id', Auth::id())->paginate(5);
+
+        return view('customer.booking.index', compact('bookings'));
+    }
     public function create($showtime_id)
     {
         $showtime = Showtime::with(['movie', 'theater'])->findOrFail($showtime_id);

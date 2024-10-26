@@ -34,7 +34,7 @@
             {{ __('Showtimes') }}
         </x-nav-link>
 
-        <x-nav-link href="">
+        <x-nav-link :href="route('management.booking.index')" :active="request()->routeIs('management.booking.index')">
             {{ __('Bookings') }}
         </x-nav-link>
 
@@ -50,7 +50,7 @@
             {{ __('Showtimes') }}
         </x-nav-link>
 
-        <x-nav-link>
+        <x-nav-link :href="route('customer.booking.index')" :active="request()->routeIs('customer.booking.index')">
             {{ __('My Bookings') }}
         </x-nav-link>
     @endif
