@@ -18,7 +18,11 @@ class Booking extends Model
         'booking_date',
         'num_tickets',
         'movie_id',
-        'seat_id',
+        'seats',
+    ];
+
+    protected $casts = [
+        'seats' => 'array', // Cast seat_id to array
     ];
 
     public function showtime()
@@ -36,8 +40,4 @@ class Booking extends Model
         return $this->belongsTo(Movie::class, 'movie_id');
     }
 
-    public function seat()
-    {
-        return $this->belongsTo(Seat::class, 'seat_id');
-    }
 }

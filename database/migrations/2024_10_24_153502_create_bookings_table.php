@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('booking_date');
             $table->integer('num_tickets');
             $table->foreignId('movie_id')->constrained('movies', 'movie_id')->onDelete('cascade');
-            $table->foreignId('seat_id')->constrained('seats', 'seat_id')->onDelete('cascade');
+            $table->json('seats');
             $table->timestamps();
         });
     }

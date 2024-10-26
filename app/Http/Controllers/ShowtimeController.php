@@ -20,7 +20,14 @@ class ShowtimeController extends Controller
     {
         $showtimes = Showtime::with(['movie', 'theater'])->simplePaginate(5);
 
-        return view('customer.movie.index', ['showtimes' => $showtimes]);
+        return view('customer.showtime.index', ['showtimes' => $showtimes]);
+    }
+
+    public function show_customer($id)
+    {
+        $showtime = Showtime::with(['movie', 'theater'])->findOrFail($id);
+
+        return view('customer.showtime.show', compact('showtime'));   
     }
 
     public function create()

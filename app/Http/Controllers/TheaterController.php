@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Theater;    
+use App\Models\Seat;
 
 use Illuminate\Http\Request;
 
@@ -21,19 +22,32 @@ class TheaterController extends Controller
 
    }
 
-   public function store(Request $request){
+   public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
+            'capacity' => 'required|numeric|min:1',
+        ]);
 
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'location' => 'required|string|max:255',
-        'capacity' => 'required|numeric|min:1',
-    ]);
+        // Create the theater
+        $theater = Theater::create([
+            'name' => $request->name,
+            'location' => $request->location,
+            'capacity' => $request->capacity,
+        ]);
 
-    Theater::create($request->only(['name', 'location', 'capacity']));
+        // Create seats for the theater
+        for ($i = 1; $i <= $theater->capacity; $i++) {
+            Seat::create([
+                'theater_id' => $theater->theater_id,
+                'seat_number' => 'Seat ' . $i,
+                'seat_status' => 'available',
+            ]);
+        }
 
-    return redirect()->route('management.theater.index');
-
-   }
+        return redirect()->route('management.theater.index')->with('success', 'Theater and seats created successfully.');
+    }
 
    public function show(Theater $theater){
 

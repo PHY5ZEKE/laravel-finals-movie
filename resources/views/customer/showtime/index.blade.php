@@ -7,18 +7,13 @@
                     
                     <div class="space-y-4">
                         @foreach ($showtimes as $showtime)
-                            {{-- <a href="{{ route('management.showtime.show', $showtime->showtime_id) }}" class="block px-4 py-6 border border-gray-200 rounded-lg shadow-sm"> --}}
+                            <a href="{{ route('customer.showtime.show', $showtime->showtime_id) }}" class="block px-4 py-6 border border-gray-200 rounded-lg shadow-sm">
                                 <h2 class="text-xl font-bold text-blue-500">{{ $showtime->movie->title }}</h2>
                                 <p class="text-gray-700"><strong>Genre:</strong> {{ $showtime->movie->genre }}</p>
-                                <p class="text-gray-700"><strong>Duration:</strong> {{ $showtime->movie->duration }} minutes</p>
-                                <p class="text-gray-700"><strong>Release Date:</strong> {{ $showtime->movie->releaseDate }}</p>
-                                <p class="text-gray-700"><strong>Description:</strong> {{ $showtime->movie->description }}</p>
                                 <p class="text-gray-700"><strong>Theater:</strong> {{ $showtime->theater->name }}</p>
-                                <p class="text-gray-700"><strong>Location:</strong> {{ $showtime->theater->location }}</p>
                                 <p class="text-gray-700"><strong>Show Date:</strong> {{ $showtime->show_date }}</p>
                                 <p class="text-gray-700"><strong>Show Time:</strong> {{ $showtime->show_time }}</p>
-                                <p class="text-gray-700"><strong>Available Seats:</strong> {{ $showtime->available_seats }}</p>
-                            {{-- </a> --}}
+                            </a>
                         @endforeach
                     </div>
                     {{ $showtimes->links() }}

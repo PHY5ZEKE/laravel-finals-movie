@@ -7,6 +7,7 @@ use App\Http\Controllers\ShowtimeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TheaterController;
+use App\Http\Controllers\BookingController;
 
 
 Route::get('/', function () {
@@ -61,8 +62,13 @@ Route::middleware(['auth', 'admin', 'employee'])->group(function () {
 
 });
 
-Route::get('/customer/movie', [ShowtimeController::class, 'index_customer'])->name('customer.movie.index');
+//Showtime Customer
+Route::get('/customer/showtime', [ShowtimeController::class, 'index_customer'])->name('customer.showtime.index');
+Route::get('/customer/showtime/{showtime}', [ShowtimeController::class, 'show_customer'])->name('customer.showtime.show');
 
+//Booking Customer
+Route::get('/customer/booking/{showtime}', [BookingController::class, 'create'])->name('customer.booking.create');
+Route::post('/customer/booking', [BookingController::class, 'store'])->name('customer.booking.store');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

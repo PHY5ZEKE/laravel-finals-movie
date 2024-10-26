@@ -11,42 +11,52 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    @php
-                    $dashboardRoute = auth()->user()->role === 'admin' ? 'management.dashboard' : 'dashboard';
-                @endphp
-                
-                <x-nav-link :href="route($dashboardRoute)" :active="request()->routeIs($dashboardRoute)">
-                    {{ __('Dashboard') }}
-                </x-nav-link>
+<div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+    @php
+        $userRole = auth()->user()->role;
+        $dashboardRoute = $userRole === 'admin' ? 'management.dashboard' : 'dashboard';
+    @endphp
 
-                <x-nav-link :href="route('management.movie.index')" :active="request()->routeIs('management.movie.index')">
-                    {{ __('Movies') }}
-                </x-nav-link>
+    <x-nav-link :href="route($dashboardRoute)" :active="request()->routeIs($dashboardRoute)">
+        {{ __('Dashboard') }}
+    </x-nav-link>
 
-                <x-nav-link :href="route('management.theater.index')" :active="request()->routeIs('management.theater.index')">
-                    {{ __('Theaters') }}
-                </x-nav-link>
+    @if ($userRole === 'admin')
+        <x-nav-link :href="route('management.movie.index')" :active="request()->routeIs('management.movie.index')">
+            {{ __('Movies') }}
+        </x-nav-link>
 
-                <x-nav-link :href="route('management.showtime.index')" :active="request()->routeIs('management.showtime.index')">
-                    {{ __('Showtimes') }}
-                </x-nav-link>
+        <x-nav-link :href="route('management.theater.index')" :active="request()->routeIs('management.theater.index')">
+            {{ __('Theaters') }}
+        </x-nav-link>
 
-                
-                <x-nav-link href="" >
-                    {{ __('Bookings') }}
-                </x-nav-link>
+        <x-nav-link :href="route('management.showtime.index')" :active="request()->routeIs('management.showtime.index')">
+            {{ __('Showtimes') }}
+        </x-nav-link>
 
-                <x-nav-link :href="route('management.user.index')" :active="request()->routeIs('management.user.index')" >
-                    {{ __('Users') }}
-                </x-nav-link>
+        <x-nav-link href="">
+            {{ __('Bookings') }}
+        </x-nav-link>
 
-                <x-nav-link href="" >
-                    {{ __('Logs') }}
-                </x-nav-link>
+        <x-nav-link :href="route('management.user.index')" :active="request()->routeIs('management.user.index')">
+            {{ __('Users') }}
+        </x-nav-link>
 
-                
-                </div>
+        <x-nav-link href="">
+            {{ __('Logs') }}
+        </x-nav-link>
+    @elseif ($userRole === 'customer')
+        <x-nav-link :href="route('customer.showtime.index')" :active="request()->routeIs('customer.showtime.index')">
+            {{ __('Showtimes') }}
+        </x-nav-link>
+
+        <x-nav-link>
+            {{ __('My Bookings') }}
+        </x-nav-link>
+    @endif
+</div>
+
+             
             </div>
 
             <!-- Settings Dropdown -->
