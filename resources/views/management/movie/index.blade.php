@@ -18,9 +18,12 @@
                             </a>
                         @endforeach
                     </div>
-                    {{ $movies->links() }}
+                    {{ $movies->links('vendor.pagination.tailwind') }}
+                    
                 </div>
             </div>
         </div>
+        
     </div>
+   
 </x-app-layout>
