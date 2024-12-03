@@ -8,7 +8,7 @@
                             Add Movie
                         </a></button>
 
-                    <form class="space-y-4" action="{{ route('management.movie.index') }}" method="GET">
+                    <form id="search-form" class="space-y-4" action="{{ route('management.movie.index') }}" method="GET">
                         <input type="text" name="search" id="search"
                             class="w-full border border-gray-200 rounded-lg shadow-sm" placeholder="Search for a movie"
                             value="">

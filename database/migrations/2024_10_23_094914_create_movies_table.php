@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('duration');
             $table->date('releaseDate');
             $table->string('description');
+            $table->string('poster-path');
             $table->timestamps();
         });
     }

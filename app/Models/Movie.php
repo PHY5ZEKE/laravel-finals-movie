@@ -18,13 +18,12 @@ class Movie extends Model
         'genre',
         'duration',
         'releaseDate',
-        'description'
+        'description',
+        'poster-path'
     ];
 
     public function showtimes()
     {
         return $this->hasMany(Showtime::class, 'movie_id');
     }
-
-
 }

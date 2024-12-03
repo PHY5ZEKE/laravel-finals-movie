@@ -42,9 +42,15 @@ class MovieController extends Controller
             'duration' => 'required|numeric|min:1',
             'releaseDate' => 'required|date',
             'description' => 'required|string',
+            'poster-path' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        Movie::create($request->only(['title', 'genre', 'duration', 'releaseDate', 'description']));
+        if ($request->hasFile('poster-path')) {
+            $file = $request->file('poster-path');
+            $filePath = $file->store('posters', 'public');
+        }
+
+        Movie::create($request->only(['title', 'genre', 'duration', 'releaseDate', 'description', $filePath ?? null]));
 
         return redirect()->route('management.movie.index');
     }
@@ -67,9 +73,10 @@ class MovieController extends Controller
             'duration' => 'required|numeric|min:1',
             'releaseDate' => 'required|date',
             'description' => 'required|string',
+            'poster-path' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $movie->update($request->only(['title', 'genre', 'duration', 'releaseDate', 'description']));
+        $movie->update($request->only(['title', 'genre', 'duration', 'releaseDate', 'description', 'poster-path']));
 
         return redirect()->route('management.movie.show', $movie->movie_id);
     }
