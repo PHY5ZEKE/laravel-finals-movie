@@ -33,7 +33,7 @@ class UserController extends Controller
 
         $user->update(request()->only(['name', 'email', 'role']));
 
-       
+
 
         return redirect()->route('management.user.show', $user->user_id);
     }

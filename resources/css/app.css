@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+    --white: #ffffff;
+    --bright-red: #ff0000;
+    --deep-red: #b20000;
+    --light-red: #ff6666;
+    --soft-white: #f8f8f8;
+    --crimson: #dc143c;
+    --cherry-red: #d50032;
+    --rose-white: #ffe5e5;
+}
