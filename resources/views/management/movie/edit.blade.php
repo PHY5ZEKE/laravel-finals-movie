@@ -8,7 +8,8 @@
                     <h1>Edit Movie</h1>
                     <hr />
                     <br />
-                    <form action="{{ route('management.movie.update', $movie->movie_id) }}" method="POST">
+                    <form action="{{ route('management.movie.update', $movie->movie_id) }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
                         @method('PATCH')
                         <div class="border-b border-gray-900/10 pb-12">
@@ -81,6 +82,10 @@
                                     <x-form-error name="description" />
                                 </div>
 
+                                @if ($movie->posterPath)
+                                    <img src="{{ asset($movie->posterPath) }}" alt="Movie Poster"
+                                        class="mb-4 w-32 h-48 object-cover">
+                                @endif
 
                             </div>
                         </div>

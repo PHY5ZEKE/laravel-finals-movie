@@ -47,12 +47,14 @@ class MovieController extends Controller
 
         if ($request->hasFile('posterPath')) {
             $file = $request->file('posterPath');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('posters'), $filename);
-            $filePath = 'posters/' . $filename;
+            $fileName = time() . '.' . $file->getClientOriginalExtension();
+            $filePath = $file->move(public_path('poster'), $fileName);
         }
 
-        Movie::create($request->only(['title', 'genre', 'duration', 'releaseDate', 'description', $filePath ?? null]));
+        Movie::create(array_merge(
+            $request->only(['title', 'genre', 'duration', 'releaseDate', 'description']),
+            ['posterPath' => 'poster/' . $fileName]
+        ));
 
         return redirect()->route('management.movie.index');
     }
@@ -80,13 +82,17 @@ class MovieController extends Controller
 
         if ($request->hasFile('posterPath')) {
             $file = $request->file('posterPath');
-            $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('posters'), $filename);
-            $filePath = 'posters/' . $filename;
-            $movie->posterPath = $filePath;
+            $fileName = time() . '.' . $file->getClientOriginalExtension();
+            $filePath = $file->move(public_path('poster'), $fileName);
+            $movie->posterPath = 'poster/' . $fileName;
         }
 
-        $movie->update($request->only(['title', 'genre', 'duration', 'releaseDate', 'description', 'posterPath']));
+        $movie->update($request->only(['title', 'genre', 'duration', 'releaseDate', 'description']));
+
+        if (isset($filePath)) {
+            $movie->posterPath = 'poster/' . $fileName;
+            $movie->save();
+        }
 
         return redirect()->route('management.movie.show', $movie->movie_id);
     }

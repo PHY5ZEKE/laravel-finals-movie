@@ -15,13 +15,21 @@
                         @foreach ($movies as $movie)
                             <a href="{{ route('management.movie.show', $movie->movie_id) }}"
                                 class="block px-4 py-6 border border-gray-200 rounded-lg shadow-sm">
+                                @if ($movie->posterPath)
+                                    <img src="{{ asset($movie->posterPath) }}" alt="Movie Poster"
+                                        class="mb-4 w-32 h-48 object-cover">
+                                @endif
                                 <h2 class="text-xl font-bold text-blue-500">{{ $movie->title }}</h2>
                                 <p class="text-gray-700"><strong>Genre:</strong> {{ $movie->genre }}</p>
                                 <p class="text-gray-700"><strong>Duration:</strong> {{ $movie->duration }} minutes</p>
                                 <p class="text-gray-700"><strong>Release Date:</strong> {{ $movie->releaseDate }}</p>
                                 <p class="text-gray-700"><strong>Description:</strong> {{ $movie->description }}</p>
+
                             </a>
                         @endforeach
+                        <div>
+
+                        </div>
                     </form>
                     {{ $movies->links('vendor.pagination.tailwind') }}
 

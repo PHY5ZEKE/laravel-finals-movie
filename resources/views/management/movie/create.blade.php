@@ -8,7 +8,7 @@
                     <h1>Add Movie</h1>
                     <hr />
                     <br />
-                    <form action="{{ route('management.movie.store') }}" method="POST">
+                    <form action="{{ route('management.movie.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <div class="border-b border-gray-900/10 pb-12">
