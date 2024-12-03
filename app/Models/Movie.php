@@ -19,7 +19,7 @@ class Movie extends Model
         'duration',
         'releaseDate',
         'description',
-        'poster-path'
+        'posterPath'
     ];
 
     public function showtimes()

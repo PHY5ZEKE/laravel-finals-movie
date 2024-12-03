@@ -42,12 +42,14 @@ class MovieController extends Controller
             'duration' => 'required|numeric|min:1',
             'releaseDate' => 'required|date',
             'description' => 'required|string',
-            'poster-path' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'posterPath' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        if ($request->hasFile('poster-path')) {
-            $file = $request->file('poster-path');
-            $filePath = $file->store('posters', 'public');
+        if ($request->hasFile('posterPath')) {
+            $file = $request->file('posterPath');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('posters'), $filename);
+            $filePath = 'posters/' . $filename;
         }
 
         Movie::create($request->only(['title', 'genre', 'duration', 'releaseDate', 'description', $filePath ?? null]));
@@ -73,10 +75,18 @@ class MovieController extends Controller
             'duration' => 'required|numeric|min:1',
             'releaseDate' => 'required|date',
             'description' => 'required|string',
-            'poster-path' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'posterPath' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $movie->update($request->only(['title', 'genre', 'duration', 'releaseDate', 'description', 'poster-path']));
+        if ($request->hasFile('posterPath')) {
+            $file = $request->file('posterPath');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('posters'), $filename);
+            $filePath = 'posters/' . $filename;
+            $movie->posterPath = $filePath;
+        }
+
+        $movie->update($request->only(['title', 'genre', 'duration', 'releaseDate', 'description', 'posterPath']));
 
         return redirect()->route('management.movie.show', $movie->movie_id);
     }
