@@ -1,80 +1,76 @@
 <x-app-layout>
-
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    <h1>Add Movie</h1>
+            <div class="bg-neutral-800 border-2 border-neutral-700 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6">
+                    <h1 class="text-xl md:text-3xl mb-5 text-red-600">Add Movie</h1>
                     <hr />
                     <br />
                     <form action="{{ route('management.movie.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <div class="border-b border-gray-900/10 pb-12">
-                            <h2 class="text-base font-semibold leading-7 text-gray-900">Movie Information</h2>
-                            <p class="mt-1 text-sm leading-6 text-gray-600">Fill out the details below to insert the
-                                movie in the website</p>
-
-                            <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                            <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                 <div class="sm:col-span-3">
                                     <label for="title"
-                                        class="block text-sm font-medium leading-6 text-gray-900">Movie Title</label>
+                                        class="block text-sm font-medium leading-6 text-neutral-400">Movie Title</label>
                                     <div class="mt-2">
                                         <input type="text" name="title" id="title" autocomplete="given-name"
-                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                            class=" block w-full rounded-md py-1.5 text-neutral-700 shadow-sm border border-gray-500 focus:border-red-600 focus:ring-red-500 placeholder:text-gray-400 sm:text-sm sm:leading-6">
                                     </div>
                                     <x-form-error name="title" />
                                 </div>
 
                                 <div class="sm:col-span-3">
                                     <label for="genre"
-                                        class="block text-sm font-medium leading-6 text-gray-900">Genre</label>
+                                        class="block text-sm font-medium leading-6 text-neutral-400">Genre</label>
                                     <div class="mt-2">
                                         <input type="text" name="genre" id="genre" autocomplete="family-name"
-                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                            class=" block w-full rounded-md py-1.5 text-neutral-700 shadow-sm border border-gray-500 focus:border-red-600 focus:ring-red-500 placeholder:text-gray-400 sm:text-sm sm:leading-6">
                                     </div>
                                     <x-form-error name="genre" />
                                 </div>
 
                                 <div class="sm:col-span-3">
                                     <label for="duration"
-                                        class="block text-sm font-medium leading-6 text-gray-900">Duration (In
+                                        class="block text-sm font-medium leading-6 text-neutral-400">Duration (In
                                         Minutes)</label>
                                     <div class="mt-2">
                                         <input type="number" name="duration" id="duration" autocomplete="given-name"
-                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                            class=" block w-full rounded-md py-1.5 text-neutral-700 shadow-sm border border-gray-500 focus:border-red-600 focus:ring-red-500 placeholder:text-gray-400 sm:text-sm sm:leading-6">
                                     </div>
                                     <x-form-error name="duration" />
                                 </div>
 
                                 <div class="sm:col-span-3">
                                     <label for="releaseDate"
-                                        class="block text-sm font-medium leading-6 text-gray-900">Release Date</label>
+                                        class="block text-sm font-medium leading-6 text-neutral-400">Release
+                                        Date</label>
                                     <div class="mt-2">
                                         <input type="date" name="releaseDate" id="releaseDate"
                                             autocomplete="family-name"
-                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                            class=" block w-full rounded-md py-1.5 text-neutral-700 shadow-sm border border-gray-500 focus:border-red-600 focus:ring-red-500 placeholder:text-gray-400 sm:text-sm sm:leading-6">
                                     </div>
                                     <x-form-error name="releaseDate" />
                                 </div>
 
                                 <div class="col-span-full">
                                     <label for="description"
-                                        class="block text-sm font-medium leading-6 text-gray-900">Description</label>
+                                        class="block text-sm font-medium leading-6 text-neutral-400">Description</label>
                                     <div class="mt-2">
                                         <textarea name="description" id="description" rows="4"
-                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 resize-y"></textarea>
+                                            class=" block w-full rounded-md py-1.5 text-neutral-700 shadow-sm border border-gray-500 focus:border-red-600 focus:ring-red-500 placeholder:text-gray-400 sm:text-sm sm:leading-6"></textarea>
                                     </div>
                                     <x-form-error name="description" />
                                 </div>
 
                                 <div class="col-span-full">
                                     <label for="image-file"
-                                        class="block text-sm font-medium leading-6 text-gray-900">Movie Poster</label>
+                                        class="block text-sm font-medium leading-6 text-neutral-400">Movie
+                                        Poster</label>
                                     <div class="mt-2">
                                         <input type="file" name="posterPath" id="posterPath"
-                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                            class="px-2 block w-full rounded-md py-1.5 text-neutral-400 shadow-sm border border-gray-500 focus:border-red-600 focus:ring-red-500 placeholder:text-gray-400 sm:text-sm sm:leading-6">
                                     </div>
                                     <x-form-error name="posterPath" />
                                 </div>
@@ -85,9 +81,13 @@
                         </div>
 
                         <div class="mt-6 flex items-center justify-end gap-x-6">
-                            <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
+                            <a href="{{ route('management.movie.index') }}">
+                                <button type="button"
+                                    class="mt-5 px-5 py-2 bg-neutral-600 text-neutral-300 rounded-lg font-semibold hover:bg-neutral-700">Cancel</button>
+                            </a>
+
                             <button type="submit"
-                                class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
+                                class="mt-5 px-5 py-2 bg-red-600 text-neutral-300 rounded-lg font-semibold hover:bg-red-700">Save</button>
                         </div>
                     </form>
 

@@ -18,32 +18,37 @@
 
 <body class="font-sans antialiased">
     <div class="bg-neutral-900">
+        <img src="{{ asset('movie.jpg') }}" alt="Cinema"
+            class="absolute inset-0 h-screen w-full object-cover opacity-85 grayscale" />
+        <div class="absolute inset-0 bg-gradient-to-b from-black to-transparent opacity-80"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-red-600 opacity-20"></div>
 
         <div class="relative min-h-screen">
 
             <header class="p-3">
                 @if (Route::has('login'))
                     <nav class="flex flex-1 gap-3 justify-between items-center">
-                        <p
-                            class="text-3xl font-bold bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-red-900 via-red-700 to-red-600 bg-clip-text text-transparent">
-                            Stream
-                        </p>
+                        <a href="{{ url('/dashboard') }}"
+                            class="font-bold rounded-md py-2 text-neutral-300 ring-1 ring-transparent transition hover:text-red-600  focus:outline-none">
+                            CineServe
+                        </a>
+
 
                         <div class="flex flex-1 gap-5 justify-end">
                             @auth
                                 <a href="{{ url('/dashboard') }}"
-                                    class="rounded-md py-2 text-white ring-1 ring-transparent transition hover:text-neutral-300  focus:outline-none">
+                                    class="font-semibold rounded-md py-2 text-neutral-300 ring-1 ring-transparent transition hover:text-red-600  focus:outline-none">
                                     Dashboard
                                 </a>
                             @else
                                 <a href="{{ route('login') }}"
-                                    class="rounded-md  py-2 text-white ring-1 ring-transparent transition hover:text-neutral-300 focus:outline-none">
+                                    class="font-semibold rounded-md  py-2 text-neutral-300 ring-1 ring-transparent transition hover:text-red-600 focus:outline-none">
                                     Log In
                                 </a>
 
                                 @if (Route::has('register'))
                                     <a href="{{ route('register') }}"
-                                        class="rounded-md py-2 text-white ring-1 ring-transparent transition hover:text-neutral-300 focus:outline-none">
+                                        class="font-semibold rounded-md py-2 text-neutral-300 ring-1 ring-transparent transition hover:text-red-600 focus:outline-none">
                                         Register
                                     </a>
                                 @endif
@@ -54,8 +59,24 @@
                 @endif
             </header>
 
-            <div>
+            <div class="container mt-20">
+                <div class="flex flex-1 flex-col items-center justify-center h-96 my-auto w-auto mx-auto">
+                    <a href="/">
+                        <p
+                            class="text-6xl md:text-9xl transition-all font-bold bg-gradient-to-t from-red-800 via-red-700 to-red-600 bg-clip-text text-transparent">
+                            CineServe
+                        </p>
+                    </a>
+                    <p class="text-xl md:text-3xl font-semibold text-neutral-300">Make cinema great again!</p>
 
+                    <a href="{{ route('register') }}">
+                        <button
+                            class="mt-5 px-5 py-2 bg-red-600 text-neutral-300 rounded-lg font-semibold hover:bg-red-700">
+                            Get Started
+                        </button>
+                    </a>
+
+                </div>
             </div>
         </div>
     </div>

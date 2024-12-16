@@ -2,7 +2,7 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
     <h1 class="text-center text-2xl font-bold text-neutral-50">Welcome back!</h1>
-    <p class="text-center text-neutral-500">Create an account to continue.</p>
+    <p class="text-center text-neutral-500">Enter your credentials to continue.</p>
     <form method="POST" action="{{ route('login') }}">
         @csrf
 

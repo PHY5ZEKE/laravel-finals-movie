@@ -17,19 +17,19 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen flex p-4 flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-neutral-950">
+    <div class="min-h-screen flex p-4 flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-neutral-900">
         <div>
             <a href="/">
                 <p
-                    class="text-6xl font-bold bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-red-900 via-red-700 to-red-600 bg-clip-text text-transparent">
-                    Stream
+                    class="text-6xl font-bold bg-gradient-to-t from-red-800 via-red-700 to-red-600 bg-clip-text text-transparent">
+                    CineServe
                 </p>
             </a>
 
         </div>
 
         <div
-            class="w-full sm:max-w-md mt-6 px-6 py-4 bg-neutral-900 overflow-hidden sm:rounded-lg border-2 border-stone-800">
+            class="w-full sm:max-w-md mt-6 px-6 py-4 bg-neutral-800 overflow-hidden sm:rounded-lg border-2 border-neutral-700">
             {{ $slot }}
         </div>
     </div>
