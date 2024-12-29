@@ -22,16 +22,7 @@
                     </div>
                 </div>
                 <div class="flex space-x-4">
-                    <a href="{{ route('management.movie.edit', $movie->movie_id) }}" class="px-5 py-2 bg-neutral-600 text-neutral-300 rounded-lg font-semibold hover:bg-neutral-700">
-                        Edit
-                    </a>
-                    <form action="{{ route('management.movie.destroy', $movie->movie_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this movie?');">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="px-5 py-2 bg-red-600 text-neutral-300 rounded-lg font-semibold hover:bg-red-700">
-                            Delete
-                        </button>
-                    </form>
+                    
                 </div>
             </div>
         </div>

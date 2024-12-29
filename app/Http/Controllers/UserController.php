@@ -7,11 +7,22 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    public function index()
-    {
+    public function index(Request $request)
+{
+    // search query
+    $search = $request->input("search");
+
+    if ($search) {
+        $users = User::where("name", "like", "%$search%")
+            ->orWhere("email", "like", "%$search%")
+            ->orWhere("created_at", "like", "%$search%")
+            ->simplePaginate(5);
+    } else {
         $users = User::simplePaginate(5);
-        return view('management.user.index', ['users' => $users]);
     }
+
+    return view('management.user.index', ['users' => $users]);
+}
 
     public function show(User $user)
     {

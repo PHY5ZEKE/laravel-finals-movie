@@ -9,17 +9,53 @@ use Illuminate\Http\Request;
 
 class ShowtimeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $showtimes = Showtime::with(['movie', 'theater'])->simplePaginate(5);
-
+        // search query
+        $search = $request->input("search");
+    
+        if ($search) {
+            $showtimes = Showtime::with(['movie', 'theater'])
+                ->whereHas('movie', function ($query) use ($search) {
+                    $query->where("title", "like", "%$search%")
+                        ->orWhere("genre", "like", "%$search%");
+                })
+                ->orWhereHas('theater', function ($query) use ($search) {
+                    $query->where("name", "like", "%$search%")
+                        ->orWhere("location", "like", "%$search%");
+                })
+                ->orWhere("show_date", "like", "%$search%")
+                ->orWhere("show_time", "like", "%$search%")
+                ->simplePaginate(5);
+        } else {
+            $showtimes = Showtime::with(['movie', 'theater'])->simplePaginate(5);
+        }
+    
         return view('management.showtime.index', ['showtimes' => $showtimes]);
     }
 
-    public function index_customer()
+    public function index_customer(Request $request)
     {
-        $showtimes = Showtime::with(['movie', 'theater'])->simplePaginate(5);
-
+        // search query
+        $search = $request->input("search");
+    
+        if ($search) {
+            $showtimes = Showtime::with(['movie', 'theater'])
+                ->whereHas('movie', function ($query) use ($search) {
+                    $query->where("title", "like", "%$search%")
+                        ->orWhere("genre", "like", "%$search%");
+                })
+                ->orWhereHas('theater', function ($query) use ($search) {
+                    $query->where("name", "like", "%$search%")
+                        ->orWhere("location", "like", "%$search%");
+                })
+                ->orWhere("show_date", "like", "%$search%")
+                ->orWhere("show_time", "like", "%$search%")
+                ->simplePaginate(5);
+        } else {
+            $showtimes = Showtime::with(['movie', 'theater'])->simplePaginate(5);
+        }
+    
         return view('customer.showtime.index', ['showtimes' => $showtimes]);
     }
 

@@ -3,6 +3,13 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-neutral-800 border-2 border-neutral-700 overflow-hidden shadow-sm sm:rounded-lg">
                 <h1 class="text-xl md:text-3xl px-6 mt-6 text-red-600">Your Movie Bookings</h1>
+
+                <form id="search-form" class="space-y-4" action="{{ route('customer.booking.index') }}" method="GET">
+                    <input type="text" name="search" id="search"
+                        class="w-full border-2 border-neutral-700 focus:border-red-600 focus:ring-red-500 rounded-lg shadow-sm"
+                        placeholder="Search for your bookings" value="">
+                </form>
+            </br>
                 <div class="p-6 text-gray-900">
                     <div class="space-y-4">
                         @foreach ($bookings as $booking)

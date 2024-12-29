@@ -29,6 +29,27 @@ class MovieController extends Controller
         return view('management.movie.index', ['movies' => $movies]);
     }
 
+    public function index_customer(Request $request)
+    {
+        $movies = Movie::paginate(5);
+
+        // search query
+        $search = $request->input("search");
+
+        if ($search) {
+            $movies = Movie::where("title", "like", "%$search%")
+                ->orWhere("genre", "like", "%$search%")
+                ->orWhere("duration", "like", "%$search%")
+                ->orWhere("releaseDate", "like", "%$search%")
+                ->orWhere("description", "like", "%$search%")
+                ->paginate(5);
+        } else {
+            $movies = Movie::paginate(5);
+        }
+
+        return view('customer.movie.index', ['movies' => $movies]);
+    }
+
     public function create()
     {
         return view('management.movie.create');
@@ -62,6 +83,11 @@ class MovieController extends Controller
     public function show(Movie $movie)
     {
         return view('management.movie.show', ['movie' => $movie]);
+    }
+    
+    public function show_customer(Movie $movie)
+    {
+        return view('customer.movie.show', ['movie' => $movie]);
     }
 
     public function edit(Movie $movie)

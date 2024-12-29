@@ -5,6 +5,11 @@
                 <div class="p-6 text-gray-900">
 
                     <h1 class="text-xl md:text-3xl mb-5 text-red-600">Bookings</h1>
+                    <form id="search-form" class="space-y-4" action="{{ route('management.booking.index') }}" method="GET">
+                        <input type="text" name="search" id="search"
+                            class="w-full border-2 border-neutral-700 focus:border-red-600 focus:ring-red-500 rounded-lg shadow-sm"
+                            placeholder="Search for bookings" value="">
+                    </form>
                     <div class="space-y-4">
                         @foreach ($bookings as $booking)
                             <div class="block px-4 py-6 border-2 border-neutral-700  rounded-lg shadow-sm">

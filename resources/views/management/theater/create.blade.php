@@ -6,7 +6,7 @@
                     <h1 class="text-xl md:text-3xl mb-5 text-red-600">Add Theater</h1>
                     <hr />
                     <br />
-                    <form action="{{ route('management.theater.store') }}" method="POST">
+                    <form action="{{ route('management.theater.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <div class="border-b border-gray-900/10 pb-12">
@@ -40,6 +40,17 @@
                                             class=" block w-full rounded-md py-1.5 text-neutral-700 shadow-sm border border-gray-500 focus:border-red-600 focus:ring-red-500 placeholder:text-gray-400 sm:text-sm sm:leading-6">
                                     </div>
                                     <x-form-error name="capacity" />
+                                </div>
+
+                                <div class="col-span-full">
+                                    <label for="image-file"
+                                        class="block text-sm font-medium leading-6 text-neutral-400"> Theater Image
+                                        </label>
+                                    <div class="mt-2">
+                                        <input type="file" name="imagePath" id="imagePath"
+                                            class="px-2 block w-full rounded-md py-1.5 text-neutral-400 shadow-sm border border-gray-500 focus:border-red-600 focus:ring-red-500 placeholder:text-gray-400 sm:text-sm sm:leading-6">
+                                    </div>
+                                    <x-form-error name="imagePath" />
                                 </div>
 
                             </div>

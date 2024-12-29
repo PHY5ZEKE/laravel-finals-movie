@@ -12,18 +12,63 @@ use Illuminate\Support\Facades\Auth;
 class BookingController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $bookings = Booking::with(['showtime.movie', 'showtime.theater', 'user'])->paginate(5);
-
+        // search query
+        $search = $request->input("search");
+    
+        if ($search) {
+            $bookings = Booking::with(['showtime.movie', 'showtime.theater', 'user'])
+                ->whereHas('showtime.movie', function ($query) use ($search) {
+                    $query->where("title", "like", "%$search%")
+                        ->orWhere("genre", "like", "%$search%");
+                })
+                ->orWhereHas('showtime.theater', function ($query) use ($search) {
+                    $query->where("name", "like", "%$search%")
+                        ->orWhere("location", "like", "%$search%");
+                })
+                ->orWhereHas('user', function ($query) use ($search) {
+                    $query->where("name", "like", "%$search%")
+                        ->orWhere("email", "like", "%$search%");
+                })
+                ->orWhere("created_at", "like", "%$search%")
+                ->simplePaginate(5);
+        } else {
+            $bookings = Booking::with(['showtime.movie', 'showtime.theater', 'user'])->simplePaginate(5);
+        }
+    
         return view('management.booking.index', compact('bookings'));
     }
-    public function index_customer()
+    
+    public function index_customer(Request $request)
     {
-        $bookings = Booking::with(['showtime.movie', 'showtime.theater', 'user'])->where('user_id', Auth::id())->paginate(5);
-
+        // search query
+        $search = $request->input("search");
+    
+        if ($search) {
+            $bookings = Booking::with(['showtime.movie', 'showtime.theater', 'user'])
+                ->where('user_id', Auth::id())
+                ->where(function ($query) use ($search) {
+                    $query->whereHas('showtime.movie', function ($query) use ($search) {
+                        $query->where("title", "like", "%$search%")
+                            ->orWhere("genre", "like", "%$search%");
+                    })
+                    ->orWhereHas('showtime.theater', function ($query) use ($search) {
+                        $query->where("name", "like", "%$search%")
+                            ->orWhere("location", "like", "%$search%");
+                    })
+                    ->orWhere("created_at", "like", "%$search%");
+                })
+                ->simplePaginate(5);
+        } else {
+            $bookings = Booking::with(['showtime.movie', 'showtime.theater', 'user'])
+                ->where('user_id', Auth::id())
+                ->simplePaginate(5);
+        }
+    
         return view('customer.booking.index', compact('bookings'));
     }
+
     public function create($showtime_id)
     {
         $showtime = Showtime::with(['movie', 'theater'])->findOrFail($showtime_id);

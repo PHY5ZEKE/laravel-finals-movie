@@ -12,7 +12,8 @@ class Theater extends Model
     protected $fillable = [
         'name',
         'location',
-        'capacity'
+        'capacity',
+        'imagePath'
     ];
 
     public function showtimes()

@@ -5,23 +5,21 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-
                     <x-application-logo class="block h-9 w-auto fill-current text-white" />
-
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     @php
                         $userRole = auth()->user()->role;
-                        $dashboardRoute = $userRole === 'admin' ? 'management.dashboard' : 'dashboard';
+                        $dashboardRoute = $userRole === 'admin' || $userRole === 'employee' ? 'management.dashboard' : 'dashboard';
                     @endphp
 
                     <x-nav-link :href="route($dashboardRoute)" :active="request()->routeIs($dashboardRoute)">
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    @if ($userRole === 'admin')
+                    @if ($userRole === 'admin' || $userRole === 'employee')
                         <x-nav-link :href="route('management.movie.index')" :active="request()->routeIs('management.movie.index')">
                             {{ __('Movies') }}
                         </x-nav-link>
@@ -42,10 +40,17 @@
                             {{ __('Users') }}
                         </x-nav-link>
 
-                        <x-nav-link href="">
-                            {{ __('Logs') }}
-                        </x-nav-link>
+                        @if ($userRole === 'admin')
+                            <x-nav-link href="">
+                                {{ __('Logs') }}
+                            </x-nav-link>
+                        @endif
                     @elseif ($userRole === 'customer')
+
+                     <x-nav-link :href="route('customer.movie.index')" :active="request()->routeIs('customer.movie.index')">
+                        {{ __('Movies') }}
+                        </x-nav-link>
+
                         <x-nav-link :href="route('customer.showtime.index')" :active="request()->routeIs('customer.showtime.index')">
                             {{ __('Showtimes') }}
                         </x-nav-link>
@@ -53,10 +58,10 @@
                         <x-nav-link :href="route('customer.booking.index')" :active="request()->routeIs('customer.booking.index')">
                             {{ __('My Bookings') }}
                         </x-nav-link>
+
+                        
                     @endif
                 </div>
-
-
             </div>
 
             <!-- Settings Dropdown -->

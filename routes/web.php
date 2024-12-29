@@ -65,6 +65,9 @@ Route::middleware(['auth', 'admin', 'employee'])->group(function () {
 
 });
 
+//Movie Customer
+Route::get('/customer/movie', [MovieController::class, 'index_customer'])->name('customer.movie.index');
+Route::get('/customer/movie/{movie}', [MovieController::class, 'show_customer'])->name('customer.movie.show');
 //Showtime Customer
 Route::get('/customer/showtime', [ShowtimeController::class, 'index_customer'])->name('customer.showtime.index');
 Route::get('/customer/showtime/{showtime}', [ShowtimeController::class, 'show_customer'])->name('customer.showtime.show');

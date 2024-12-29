@@ -8,13 +8,22 @@ use Illuminate\Http\Request;
 
 class TheaterController extends Controller
 {
-   public function index(){
-
-    $theaters = Theater::simplePaginate(5);
-
-    return view('management.theater.index',['theaters'=>$theaters]);
-
-   }
+    public function index(Request $request)
+    {
+        // search query
+        $search = $request->input("search");
+    
+        if ($search) {
+            $theaters = Theater::where("name", "like", "%$search%")
+                ->orWhere("location", "like", "%$search%")
+                ->orWhere("capacity", "like", "%$search%")
+                ->simplePaginate(5);
+        } else {
+            $theaters = Theater::simplePaginate(5);
+        }
+    
+        return view('management.theater.index', ['theaters' => $theaters]);
+    }
 
    public function create(){
 
@@ -23,31 +32,40 @@ class TheaterController extends Controller
    }
 
    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'location' => 'required|string|max:255',
-            'capacity' => 'required|numeric|min:1',
-        ]);
-
-        // Create the theater
-        $theater = Theater::create([
-            'name' => $request->name,
-            'location' => $request->location,
-            'capacity' => $request->capacity,
-        ]);
-
-        // Create seats for the theater
-        for ($i = 1; $i <= $theater->capacity; $i++) {
-            Seat::create([
-                'theater_id' => $theater->theater_id,
-                'seat_number' => 'Seat ' . $i,
-                'seat_status' => 'available',
-            ]);
-        }
-
-        return redirect()->route('management.theater.index')->with('success', 'Theater and seats created successfully.');
-    }
+   {
+       $request->validate([
+           'name' => 'required|string|max:255',
+           'location' => 'required|string|max:255',
+           'capacity' => 'required|numeric|min:1',
+           'imagePath' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+       ]);
+   
+       // Handle the image upload
+       if ($request->hasFile('imagePath')) {
+           $file = $request->file('imagePath');
+           $fileName = time() . '.' . $file->getClientOriginalExtension();
+           $filePath = $file->move(public_path('images/theaters'), $fileName);
+       }
+   
+       // Create the theater
+       $theater = Theater::create([
+           'name' => $request->name,
+           'location' => $request->location,
+           'capacity' => $request->capacity,
+           'imagePath' => 'images/theaters/' . $fileName,
+       ]);
+   
+       // Create seats for the theater
+       for ($i = 1; $i <= $theater->capacity; $i++) {
+           Seat::create([
+               'theater_id' => $theater->theater_id,
+               'seat_number' => 'Seat ' . $i,
+               'seat_status' => 'available',
+           ]);
+       }
+   
+       return redirect()->route('management.theater.index')->with('success', 'Theater and seats created successfully.');
+   }
 
    public function show(Theater $theater){
 
@@ -61,19 +79,31 @@ class TheaterController extends Controller
 
    }
 
-    public function update(Request $request, Theater $theater){
-    
-     $request->validate([
-          'name' => 'required|string|max:255',
-          'location' => 'required|string|max:255',
-          'capacity' => 'required|numeric|min:1',
-     ]);
-    
-     $theater->update($request->only(['name', 'location', 'capacity']));
-    
-     return redirect()->route('management.theater.show', $theater->theater_id);
-    
+   public function update(Request $request, Theater $theater)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'location' => 'required|string|max:255',
+        'capacity' => 'required|numeric|min:1',
+        'imagePath' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
+
+    if ($request->hasFile('imagePath')) {
+        $file = $request->file('imagePath');
+        $fileName = time() . '.' . $file->getClientOriginalExtension();
+        $filePath = $file->move(public_path('images'), $fileName);
+        $theater->imagePath = 'images/' . $fileName;
     }
+
+    $theater->update($request->only(['name', 'location', 'capacity']));
+
+    if (isset($filePath)) {
+        $theater->imagePath = 'images/' . $fileName;
+        $theater->save();
+    }
+
+    return redirect()->route('management.theater.show', $theater->theater_id);
+}
 
     public function destroy(Theater $theater){
     
