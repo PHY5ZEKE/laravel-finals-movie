@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TheaterController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\LogController;
 
 
 Route::get('/', function () {
@@ -63,6 +64,8 @@ Route::middleware(['auth', 'admin', 'employee'])->group(function () {
     //Booking Management
     Route::get('/management/booking', [BookingController::class, 'index'])->name('management.booking.index');
 
+    //Log Management
+    Route::get('/management/log', [LogController::class, 'index'])->name('management.log.index');
 });
 
 //Movie Customer

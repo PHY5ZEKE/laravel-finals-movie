@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Movie;
-
+use App\Helper\LogHelper;
 use Illuminate\Http\Request;
 
 class MovieController extends Controller
@@ -72,12 +72,15 @@ class MovieController extends Controller
             $filePath = $file->move(public_path('poster'), $fileName);
         }
 
-        Movie::create(array_merge(
+        $movie = Movie::create(array_merge(
             $request->only(['title', 'genre', 'duration', 'releaseDate', 'description']),
             ['posterPath' => 'poster/' . $fileName]
         ));
 
-        return redirect()->route('management.movie.index');
+        // Log the action
+        LogHelper::logAction('create_movie', 'Created movie: ' . $movie->title);
+
+        return redirect()->route('management.movie.index')->with('success', 'Movie created successfully.');
     }
 
     public function show(Movie $movie)
@@ -120,12 +123,18 @@ class MovieController extends Controller
             $movie->save();
         }
 
+        // Log the action
+        LogHelper::logAction('update_movie', 'Updated movie: ' . $movie->title);
+
         return redirect()->route('management.movie.show', $movie->movie_id);
     }
 
     public function destroy(Movie $movie)
     {
         $movie->delete();
+
+        // Log the action
+        LogHelper::logAction('delete_movie', 'Deleted movie: ' . $movie->title);
 
         return redirect()->route('management.movie.index');
     }

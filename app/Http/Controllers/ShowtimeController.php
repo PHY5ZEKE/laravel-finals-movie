@@ -6,6 +6,7 @@ use App\Models\Showtime;
 use App\Models\Movie;
 use App\Models\Theater;
 use Illuminate\Http\Request;
+use App\Helper\LogHelper;
 
 class ShowtimeController extends Controller
 {
@@ -84,7 +85,7 @@ class ShowtimeController extends Controller
 
         $theater = Theater::findOrFail($request->theater_id);
 
-        Showtime::create([
+        $showtime = Showtime::create([
             'movie_id' => $request->movie_id,
             'theater_id' => $request->theater_id,
             'show_date' => $request->show_date,
@@ -92,7 +93,10 @@ class ShowtimeController extends Controller
             'available_seats' => $theater->capacity,
         ]);
 
-        return redirect()->route('management.showtime.index');
+        // Log the action
+        LogHelper::logAction('create_showtime', 'Created showtime for movie ID: ' . $request->movie_id . ' in theater ID: ' . $request->theater_id);
+
+        return redirect()->route('management.showtime.index')->with('success', 'Showtime created successfully.');
     }
 
     public function show($id)
@@ -107,7 +111,10 @@ class ShowtimeController extends Controller
         $showtime = Showtime::findOrFail($id);
         $showtime->delete();
 
-        return redirect()->route('management.showtime.index');
+        // Log the action
+        LogHelper::logAction('delete_showtime', 'Deleted showtime ID: ' . $id);
+
+        return redirect()->route('management.showtime.index')->with('success', 'Showtime deleted successfully.');
     }
     public function edit($id)
     {
@@ -138,7 +145,10 @@ class ShowtimeController extends Controller
             'available_seats' => $theater->capacity,
         ]);
 
-        return redirect()->route('management.showtime.index');
+        // Log the action
+        LogHelper::logAction('update_showtime', 'Updated showtime ID: ' . $id);
+
+        return redirect()->route('management.showtime.index')->with('success', 'Showtime updated successfully.');
     }
 
     

@@ -7,6 +7,7 @@ use App\Models\Showtime;
 use App\Models\Seat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Helper\LogHelper;
 
 
 class BookingController extends Controller
@@ -107,6 +108,9 @@ class BookingController extends Controller
 
         // Update seat status
         Seat::whereIn('seat_id', $request->seats)->update(['seat_status' => 'booked']);
+
+        // Log the action
+        LogHelper::logAction('create_booking', 'Created booking for showtime ID: ' . $request->showtime_id . ' by user ID: ' . $user->user_id);
 
         return redirect()->route('customer.showtime.index')->with('success', 'Booking successful!');
     }

@@ -41,9 +41,9 @@
                         </x-nav-link>
 
                         @if ($userRole === 'admin')
-                            <x-nav-link href="">
-                                {{ __('Logs') }}
-                            </x-nav-link>
+                        <x-nav-link :href="route('management.log.index')" :active="request()->routeIs('management.log.index')">
+                            {{ __('Logs') }}
+                        </x-nav-link>
                         @endif
                     @elseif ($userRole === 'customer')
 
