@@ -17,7 +17,7 @@ class BookingController extends Controller
     {
         // search query
         $search = $request->input("search");
-    
+
         if ($search) {
             $bookings = Booking::with(['showtime.movie', 'showtime.theater', 'user'])
                 ->whereHas('showtime.movie', function ($query) use ($search) {
@@ -37,15 +37,15 @@ class BookingController extends Controller
         } else {
             $bookings = Booking::with(['showtime.movie', 'showtime.theater', 'user'])->simplePaginate(5);
         }
-    
+
         return view('management.booking.index', compact('bookings'));
     }
-    
+
     public function index_customer(Request $request)
     {
         // search query
         $search = $request->input("search");
-    
+
         if ($search) {
             $bookings = Booking::with(['showtime.movie', 'showtime.theater', 'user'])
                 ->where('user_id', Auth::id())
@@ -54,11 +54,11 @@ class BookingController extends Controller
                         $query->where("title", "like", "%$search%")
                             ->orWhere("genre", "like", "%$search%");
                     })
-                    ->orWhereHas('showtime.theater', function ($query) use ($search) {
-                        $query->where("name", "like", "%$search%")
-                            ->orWhere("location", "like", "%$search%");
-                    })
-                    ->orWhere("created_at", "like", "%$search%");
+                        ->orWhereHas('showtime.theater', function ($query) use ($search) {
+                            $query->where("name", "like", "%$search%")
+                                ->orWhere("location", "like", "%$search%");
+                        })
+                        ->orWhere("created_at", "like", "%$search%");
                 })
                 ->simplePaginate(5);
         } else {
@@ -66,7 +66,7 @@ class BookingController extends Controller
                 ->where('user_id', Auth::id())
                 ->simplePaginate(5);
         }
-    
+
         return view('customer.booking.index', compact('bookings'));
     }
 
@@ -78,7 +78,7 @@ class BookingController extends Controller
         return view('customer.booking.create', compact('showtime', 'seats'));
     }
 
-   
+
 
     public function store(Request $request)
     {
@@ -115,5 +115,3 @@ class BookingController extends Controller
         return redirect()->route('customer.showtime.index')->with('success', 'Booking successful!');
     }
 }
-    
-

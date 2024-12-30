@@ -9,25 +9,21 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TheaterController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\LogController;
-
+use App\Http\Controllers\CustomerController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 //Customer
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [CustomerController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 //Admin and Employee
 
 Route::middleware(['auth', 'admin', 'employee'])->group(function () {
-
-   
     Route::get('/management/dashboard', [ManagementController::class, 'index'])->name('management.dashboard');
 
-     //Movie Management
+    //Movie Management
     Route::get('/management/movie', [MovieController::class, 'index'])->name('management.movie.index');
     Route::get('/management/movie/create', [MovieController::class, 'create'])->name('management.movie.create');
     Route::post('/management/movie', [MovieController::class, 'store'])->name('management.movie.store');

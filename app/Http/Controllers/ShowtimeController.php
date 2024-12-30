@@ -14,9 +14,10 @@ class ShowtimeController extends Controller
     {
         // search query
         $search = $request->input("search");
-    
+
         if ($search) {
             $showtimes = Showtime::with(['movie', 'theater'])
+                ->where('show_date', '>', now())
                 ->whereHas('movie', function ($query) use ($search) {
                     $query->where("title", "like", "%$search%")
                         ->orWhere("genre", "like", "%$search%");
@@ -29,9 +30,11 @@ class ShowtimeController extends Controller
                 ->orWhere("show_time", "like", "%$search%")
                 ->simplePaginate(5);
         } else {
-            $showtimes = Showtime::with(['movie', 'theater'])->simplePaginate(5);
+            $showtimes = Showtime::with(['movie', 'theater'])
+                ->where('show_date', '>', now())
+                ->simplePaginate(5);
         }
-    
+
         return view('management.showtime.index', ['showtimes' => $showtimes]);
     }
 
@@ -39,9 +42,10 @@ class ShowtimeController extends Controller
     {
         // search query
         $search = $request->input("search");
-    
+
         if ($search) {
             $showtimes = Showtime::with(['movie', 'theater'])
+                ->where('show_date', '>', now())
                 ->whereHas('movie', function ($query) use ($search) {
                     $query->where("title", "like", "%$search%")
                         ->orWhere("genre", "like", "%$search%");
@@ -54,9 +58,11 @@ class ShowtimeController extends Controller
                 ->orWhere("show_time", "like", "%$search%")
                 ->simplePaginate(5);
         } else {
-            $showtimes = Showtime::with(['movie', 'theater'])->simplePaginate(5);
+            $showtimes = Showtime::with(['movie', 'theater'])
+                ->where('show_date', '>', now())
+                ->simplePaginate(5);
         }
-    
+
         return view('customer.showtime.index', ['showtimes' => $showtimes]);
     }
 
@@ -64,7 +70,7 @@ class ShowtimeController extends Controller
     {
         $showtime = Showtime::with(['movie', 'theater'])->findOrFail($id);
 
-        return view('customer.showtime.show', compact('showtime'));   
+        return view('customer.showtime.show', compact('showtime'));
     }
 
     public function create()
@@ -103,7 +109,7 @@ class ShowtimeController extends Controller
     {
         $showtime = Showtime::with(['movie', 'theater'])->findOrFail($id);
 
-        return view('management.showtime.show', compact('showtime'));   
+        return view('management.showtime.show', compact('showtime'));
     }
 
     public function destroy($id)
@@ -150,6 +156,4 @@ class ShowtimeController extends Controller
 
         return redirect()->route('management.showtime.index')->with('success', 'Showtime updated successfully.');
     }
-
-    
-}   
+}
