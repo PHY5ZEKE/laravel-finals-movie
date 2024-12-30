@@ -12,7 +12,8 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     @php
                         $userRole = auth()->user()->role;
-                        $dashboardRoute = $userRole === 'admin' || $userRole === 'employee' ? 'management.dashboard' : 'dashboard';
+                        $dashboardRoute =
+                            $userRole === 'admin' || $userRole === 'employee' ? 'management.dashboard' : 'dashboard';
                     @endphp
 
                     <x-nav-link :href="route($dashboardRoute)" :active="request()->routeIs($dashboardRoute)">
@@ -41,14 +42,13 @@
                         </x-nav-link>
 
                         @if ($userRole === 'admin')
-                        <x-nav-link :href="route('management.log.index')" :active="request()->routeIs('management.log.index')">
-                            {{ __('Logs') }}
-                        </x-nav-link>
+                            <x-nav-link :href="route('management.log.index')" :active="request()->routeIs('management.log.index')">
+                                {{ __('Logs') }}
+                            </x-nav-link>
                         @endif
                     @elseif ($userRole === 'customer')
-
-                     <x-nav-link :href="route('customer.movie.index')" :active="request()->routeIs('customer.movie.index')">
-                        {{ __('Movies') }}
+                        <x-nav-link :href="route('customer.movie.index')" :active="request()->routeIs('customer.movie.index')">
+                            {{ __('Movies') }}
                         </x-nav-link>
 
                         <x-nav-link :href="route('customer.showtime.index')" :active="request()->routeIs('customer.showtime.index')">
@@ -59,7 +59,7 @@
                             {{ __('My Bookings') }}
                         </x-nav-link>
 
-                        
+
                     @endif
                 </div>
             </div>

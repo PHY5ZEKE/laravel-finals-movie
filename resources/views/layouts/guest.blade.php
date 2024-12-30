@@ -20,10 +20,11 @@
     <div class="min-h-screen flex p-4 flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-neutral-900">
         <div>
             <a href="/">
-                <p
+                {{-- <p
                     class="text-6xl font-bold bg-gradient-to-t from-red-800 via-red-700 to-red-600 bg-clip-text text-transparent">
                     CineServe
-                </p>
+                </p> --}}
+                <img src="{{ asset('android-chrome-192x192.png') }}" alt="CineServe" />
             </a>
 
         </div>

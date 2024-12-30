@@ -30,7 +30,7 @@
                     <nav class="flex flex-1 gap-3 justify-between items-center">
                         <a href="{{ url('/dashboard') }}"
                             class="font-bold rounded-md py-2 text-neutral-300 ring-1 ring-transparent transition hover:text-red-600  focus:outline-none">
-                            CineServe
+                            <image src="{{ asset('favicon-32x32.png') }}" />
                         </a>
 
 
@@ -62,10 +62,11 @@
             <div class="container mt-20">
                 <div class="flex flex-1 flex-col items-center justify-center h-96 my-auto w-auto mx-auto">
                     <a href="/">
-                        <p
+                        {{-- <p
                             class="text-6xl md:text-9xl transition-all font-bold bg-gradient-to-t from-red-800 via-red-700 to-red-600 bg-clip-text text-transparent">
                             CineServe
-                        </p>
+                        </p> --}}
+                        <img src="{{ asset('android-chrome-192x192.png') }}" alt="CineServe" />
                     </a>
                     <p class="text-xl md:text-3xl font-semibold text-neutral-300">Make cinema great again!</p>
 
